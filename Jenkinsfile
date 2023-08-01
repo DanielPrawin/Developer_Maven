@@ -1,26 +1,99 @@
-node('built-in')
+@Library("myLibrary1")_
+pipeline
 {
-    stage('Continious-Download')
+    agent any
+    stages
     {
-        git 'https://github.com/DanielPrawin/Developer_Maven.git'
-        
-    }
-     stage('Continious-Build')
-    {
-        sh 'mvn package'
-    }
-     stage('Continious-Deploy')
-    {
-          sh 'scp /var/lib/jenkins/workspace/ScriptedPipeLine/webapp/target/webapp.war ubuntu@172.31.14.233:/var/lib/tomcat9/webapps/testapp2.war'
+        stage('C-download')
+        {
+          steps
+          {
+              script
+              {
+                  try
+                  {
+                      cicd.newGit("Developer_Maven")
+                  }
+                  catch (Exception e1)
+                  {
+                      
+                  }
+                  
+              }
+          }    
+        }
+         stage('C-built')
+        {
+          steps
+          {
+              script
+              {
+                   try
+                  {
+                       cicd.build()
+                  }
+                  catch (Exception e2)
+                  {
+                      
+                  }
+                 
+              }
+          }    
+        }
+        stage('C-deployment')
+        {
+          steps
+          {
+              script
+              {
+                   try
+                  {
+                         cicd.deployment("sp2","172.31.14.233","testapp2")
+                  }
+                  catch (Exception e3)
+                  {
+                      
+                  }
                
-    }
-       stage('Continious-Testing')
-    {
-       git 'https://github.com/DanielPrawin/Tester.git'
-       sh 'java -jar /var/lib/jenkins/workspace/ScriptedPipeLine/testing.jar'   
-    }
-      stage('Continious-Delivery')
-    {
-            sh 'scp /var/lib/jenkins/workspace/ScriptedPipeLine/webapp/target/webapp.war ubuntu@172.31.14.94:/var/lib/tomcat9/webapps/prodapp2.war'
+              }
+          }    
+        }
+        stage('C-testing')
+        {
+          steps
+          {
+              script
+              {
+                   try
+                  {
+                      cicd.newGit("Tester")
+                      cicd.testscenario("sp2")
+                  }
+                  catch (Exception e4)
+                  {
+                      
+                  }
+                
+              }
+          }    
+        }
+        stage('C-delivery')
+        {
+          steps
+          {
+              script
+              {
+                   try
+                  {
+                      cicd.deployment("sp2","172.31.14.94","prodapp7")
+                  }
+                  catch (Exception e5)
+                  {
+                      
+                  }
+                  
+              }
+          }    
+        }
     }
 }
