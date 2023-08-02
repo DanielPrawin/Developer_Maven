@@ -1,99 +1,97 @@
-@Library("myLibrary1")_
+@Library("myLibrary")_
 pipeline
 {
     agent any
     stages
     {
-        stage('C-download')
+        stage('Continious-Download')
         {
-          steps
-          {
-              script
-              {
-                  try
-                  {
-                      cicd.newGit("Developer_Maven")
-                  }
-                  catch (Exception e1)
-                  {
-                      
-                  }
-                  
-              }
-          }    
+            steps
+            {
+                script
+                {
+                    try
+                    {
+                         cici.newGit("maven")
+                        
+                    }
+                   catch(Exception e1)
+                   {
+                       
+                   }
+                }
+            }
         }
-         stage('C-built')
+        stage('Continious-Build')
         {
-          steps
-          {
-              script
-              {
-                   try
-                  {
-                       cicd.build()
-                  }
-                  catch (Exception e2)
-                  {
-                      
-                  }
-                 
-              }
-          }    
+            steps
+            {
+                script
+                {
+                    try
+                    {
+                      cici.buildProcess()
+                    }
+                   catch(Exception e2)
+                   {
+                       
+                   }
+                }
+            }
         }
-        stage('C-deployment')
+        stage('Continious-download')
         {
-          steps
-          {
-              script
-              {
-                   try
-                  {
-                         cicd.deployment("sp2","172.31.14.233","testapp2")
-                  }
-                  catch (Exception e3)
-                  {
-                      
-                  }
-               
-              }
-          }    
+            steps
+            {
+                script
+                {
+                    try
+                    {
+                       
+                        cicd.deployment("Declarative_PipeLine","172.31.17.18","testapp2")
+                    }
+                   catch(Exception e3)
+                   {
+                       
+                   }
+                }
+            }
         }
-        stage('C-testing')
+         stage('Continious-testing')
         {
-          steps
-          {
-              script
-              {
-                   try
-                  {
-                      cicd.newGit("Tester")
-                      cicd.testscenario("sp2")
-                  }
-                  catch (Exception e4)
-                  {
-                      
-                  }
-                
-              }
-          }    
+            steps
+            {
+                script
+                {
+                    try
+                    {
+                        cici.newGit("FunctionalTesting")
+                        cicd.testing("Declarative_PipeLine")
+                    }
+                   catch(Exception e4)
+                   {
+                       
+                   }
+                }
+            }
         }
-        stage('C-delivery')
+        stage('Continious-Delivery')
         {
-          steps
-          {
-              script
-              {
-                   try
-                  {
-                      cicd.deployment("sp2","172.31.14.94","prodapp7")
-                  }
-                  catch (Exception e5)
-                  {
-                      
-                  }
-                  
-              }
-          }    
+            steps
+            {
+                script
+                {
+                    try
+                    {
+                       cicd.deployment("Declarative_PipeLine","172.31.18.195","prodapp2")
+                        
+                    }
+                   catch(Exception e5)
+                   {
+                       
+                   }
+                }
+            }
         }
     }
 }
