@@ -46,7 +46,7 @@ pipeline
                 {
                     try
                     {
-                        cicd.copyBuilt("ScriptedPipeLine","172.31.3.227","testapp1");
+                        cicd.copyBuilt("ScriptedPipeLine","172.31.3.227","testapp2");
                     }
                     catch(Exception e3)
                     {
@@ -82,7 +82,7 @@ pipeline
                     try
                     {
                      
-                        cicd.copyBuilt("ScriptedPipeLine","172.31.5.152","prodapp1");
+                        cicd.copyBuilt("ScriptedPipeLine","172.31.5.152","prodapp2");
                     }
                     catch(Exception e5)
                     {
