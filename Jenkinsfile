@@ -11,13 +11,13 @@ pipeline
                 script
                 {
                     try
-                     {
-                         cicd.newgit("Developer_Maven");
-                     }
-                     catch(Exception e1)
-                     {
-                         
-                     }
+                    {
+                        cicd.newGit("Developer_Maven");
+                    }
+                    catch(Exception e1)
+                    {
+                        
+                    }
                 }
             }
         }
@@ -28,13 +28,13 @@ pipeline
                 script
                 {
                     try
-                     {
-                        cicd.built();
-                     }
-                     catch(Exception e2)
-                     {
-                         
-                     }
+                    {
+                      cicd.build();
+                    }
+                    catch(Exception e2)
+                    {
+                        
+                    }
                 }
             }
         }
@@ -45,48 +45,49 @@ pipeline
                 script
                 {
                     try
-                     {
-                        cicd.deploy("ScriptedPipeLine","172.31.1.188","testapp2")
-                     }
-                     catch(Exception e3)
-                     {
-                         
-                     }
+                    {
+                        cicd.copyBuilt("ScriptedPipeLine","172.31.3.227","testapp1");
+                    }
+                    catch(Exception e3)
+                    {
+                        
+                    }
                 }
             }
         }
-        stage('continious-testing')
+         stage('continious-testing')
         {
             steps
             {
                 script
                 {
                     try
-                     {
-                        cicd.newgit("Tester");
-                        cicd.testing("ScriptedPipeLine");
-                     }
-                     catch(Exception e4)
-                     {
-                         
-                     }
+                    {
+                        cicd.newGit("Tester");
+                        cicd.test("ScriptedPipeLine");
+                        }
+                    catch(Exception e4)
+                    {
+                        
+                    }
                 }
             }
         }
-          stage('continious-delivery')
+        stage('continious-delivery')
         {
             steps
             {
                 script
                 {
                     try
-                     {
-                      cicd.deploy("ScriptedPipeLine","172.31.2.82","prodapp2")
-                     }
-                     catch(Exception e5)
-                     {
-                         
-                     }
+                    {
+                     
+                        cicd.copyBuilt("ScriptedPipeLine","172.31.5.152","prodapp1");
+                    }
+                    catch(Exception e5)
+                    {
+                        
+                    }
                 }
             }
         }
