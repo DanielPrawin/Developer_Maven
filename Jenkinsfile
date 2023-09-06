@@ -4,90 +4,95 @@ pipeline
     agent any
     stages
     {
-        stage('continious-download')
+        stage('continious download')
         {
             steps
             {
                 script
                 {
-                    try
-                    {
-                        cicd.newGit("Developer_Maven");
-                    }
-                    catch(Exception e1)
-                    {
-                        
-                    }
+                    
+                try
+                {
+                    cicd.newGit("Developer_Maven");
+                }
+                catch(Exception e1)
+                {
+                    exit(1)
+                }
                 }
             }
         }
-        stage('continious-built')
+         stage('continious built')
         {
             steps
             {
                 script
                 {
-                    try
-                    {
-                      cicd.build();
-                    }
-                    catch(Exception e2)
-                    {
-                        
-                    }
+                    
+                try
+                {
+                   cicd.build();
+                }
+                catch(Exception e2)
+                {
+                    exit(2)
+                }
                 }
             }
         }
-         stage('continious-deploy')
+         
+         stage('continious deploy')
         {
             steps
             {
                 script
                 {
-                    try
-                    {
-                        cicd.copyBuilt("ScriptedPipeLine","172.31.3.227","testapp2");
-                    }
-                    catch(Exception e3)
-                    {
-                        
-                    }
+                    
+                try
+                {
+                   cicd.deploy("ScriptedPipeLine","172.31.47.214","testapp1");
+                }
+                catch(Exception e3)
+                {
+                    exit(3)
+                }
                 }
             }
         }
-         stage('continious-testing')
+         stage('continious testing')
         {
             steps
             {
                 script
                 {
-                    try
-                    {
-                        cicd.newGit("Tester");
-                        cicd.test("ScriptedPipeLine");
-                        }
-                    catch(Exception e4)
-                    {
-                        
-                    }
+                    
+                try
+                {
+                  cicd.newGit("Tester");
+                  cicd.testing("testing");
+                }
+                catch(Exception e4)
+                {
+                    exit(4)
+                }
                 }
             }
         }
-        stage('continious-delivery')
+          stage('continious delivery')
         {
             steps
             {
                 script
                 {
-                    try
-                    {
-                     
-                        cicd.copyBuilt("ScriptedPipeLine","172.31.5.152","prodapp2");
-                    }
-                    catch(Exception e5)
-                    {
-                        
-                    }
+                    
+                try
+                {
+                    cicd.deploy("ScriptedPipeLine","172.31.42.212","prodapp1");
+                }
+                catch(Exception e5)
+                {
+                    exit(5)
+                }
                 }
             }
         }
