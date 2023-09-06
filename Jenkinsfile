@@ -50,7 +50,7 @@ pipeline
                     
                 try
                 {
-                   cicd.deploy("ScriptedPipeLine","172.31.47.214","testapp1");
+                   cicd.deploy("ScriptedPipeLine","172.31.47.214","testapp11");
                 }
                 catch(Exception e3)
                 {
@@ -87,7 +87,7 @@ pipeline
                     
                 try
                 {
-                    cicd.deploy("ScriptedPipeLine","172.31.42.212","prodapp1");
+                    cicd.deploy("ScriptedPipeLine","172.31.42.212","prodapp12");
                 }
                 catch(Exception e5)
                 {
